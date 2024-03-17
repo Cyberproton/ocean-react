@@ -26,8 +26,9 @@ export const LoginPage = () => {
     <div className="flex flex-col h-screen p-4">
       <div className="flex flex-1 flex-col justify-center items-center">
         <img className="w-64" src={logo} alt="logo" />
-        <p className="text-3xl text-center font-bold my-8">
-          Login to your account
+        <p className="text-3xl text-center font-bold my-8 bg-yellow-50">
+          Login to your account with a password then click the button to login
+          to the app
         </p>
         <form className="w-full">
           <OutlinedInput
@@ -55,7 +56,41 @@ export const LoginPage = () => {
             }
           />
         </form>
+        <Spinner width={4} size={1} />
         <button className="button px-0 my-2 self-start">Reset password?</button>
+        <div className="flex">
+          <OutlinedInput
+            label="Email"
+            inputProps={{
+              type: "email",
+              placeholder: "Enter your email",
+            }}
+          />
+          <button
+            className="button-filled w-full my-6 mx-0"
+            onClick={() => {
+              login({
+                email: "",
+                password: "password",
+              });
+              navigate(AppRoute.HOME);
+            }}
+          >
+            <Spinner width={4} />
+          </button>
+          <button
+            className="button-filled w-full my-6"
+            onClick={() => {
+              login({
+                email: "",
+                password: "password",
+              });
+              navigate(AppRoute.HOME);
+            }}
+          >
+            sfddssf
+          </button>
+        </div>
         <button
           className="button-filled w-full my-6"
           onClick={() => {
@@ -66,7 +101,19 @@ export const LoginPage = () => {
             navigate(AppRoute.HOME);
           }}
         >
-          <Spinner />
+          <Spinner width={6} />
+        </button>
+        <button
+          className="button-filled w-full my-6"
+          onClick={() => {
+            login({
+              email: "",
+              password: "password",
+            });
+            navigate(AppRoute.HOME);
+          }}
+        >
+          sfddssf
         </button>
         <div className="flex flex-row items-center">
           <p>Don't have an account?</p>
