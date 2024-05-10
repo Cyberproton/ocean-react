@@ -2,8 +2,12 @@ import { EmailVerificationPage } from "@/features/auth/pages/EmailVerificationPa
 import { LoginPage } from "@/features/auth/pages/LoginPage";
 import { PasswordResetPage } from "@/features/auth/pages/PasswordResetPage";
 import { RegisterPage } from "@/features/auth/pages/RegisterPage";
+import { LibraryPage } from "@/features/library/pages/LibraryPage";
 import { HomePage } from "@/features/misc/pages/HomePage";
+import { ProfileEditPage } from "@/features/profile/pages/ProfileEditPage";
 import { ProfilePage } from "@/features/profile/pages/ProfilePage";
+import { RankingsPage } from "@/features/rankings/pages/RankingsPage";
+import { SearchPage } from "@/features/search/pages/SearchPage";
 import { useRoutes } from "react-router-dom";
 import { AppRoute } from "./routes";
 
@@ -34,8 +38,12 @@ export const AppRoutes = () => {
       element: <ProfilePage />,
     },
     {
+      path: AppRoute.PROFILE_EDIT,
+      element: <ProfileEditPage />,
+    },
+    {
       path: AppRoute.SEARCH,
-      element: <h1>Search Page</h1>,
+      element: <SearchPage />,
     },
     {
       path: AppRoute.ADVANCED_SEARCH,
@@ -43,11 +51,11 @@ export const AppRoutes = () => {
     },
     {
       path: AppRoute.LIBRARY,
-      element: <h1>Library Page</h1>,
+      element: <LibraryPage />,
     },
     {
       path: AppRoute.EXPLORE,
-      element: <h1>Explore Page</h1>,
+      element: <RankingsPage />,
     },
     {
       path: AppRoute.TRACK,

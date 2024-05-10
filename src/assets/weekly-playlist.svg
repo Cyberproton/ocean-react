@@ -1,0 +1,53 @@
+<svg width="382" height="100" viewBox="0 0 382 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g clip-path="url(#clip0_54976_30450)">
+<rect width="382" height="100" rx="12" fill="#14B8A6"/>
+<circle cx="248" cy="101" r="20" fill="white" fill-opacity="0.2"/>
+<g clip-path="url(#clip1_54976_30450)">
+<path d="M247 40.5L247.015 56.325C246.13 55.815 245.11 55.5 244.015 55.5C240.685 55.5 238 58.185 238 61.5C238 64.815 240.685 67.5 244.015 67.5C247.345 67.5 250 64.815 250 61.5V46.5H256V40.5H247ZM244.015 64.5C242.365 64.5 241.015 63.15 241.015 61.5C241.015 59.85 242.365 58.5 244.015 58.5C245.665 58.5 247.015 59.85 247.015 61.5C247.015 63.15 245.665 64.5 244.015 64.5Z" fill="white" fill-opacity="0.2"/>
+</g>
+<g clip-path="url(#clip2_54976_30450)">
+<path d="M283 9C274.72 9 268 15.72 268 24C268 32.28 274.72 39 283 39C291.28 39 298 32.28 298 24C298 15.72 291.28 9 283 9ZM283 36C276.385 36 271 30.615 271 24C271 17.385 276.385 12 283 12C289.615 12 295 17.385 295 24C295 30.615 289.615 36 283 36ZM283 17.25C279.265 17.25 276.25 20.265 276.25 24C276.25 27.735 279.265 30.75 283 30.75C286.735 30.75 289.75 27.735 289.75 24C289.75 20.265 286.735 17.25 283 17.25ZM283 25.5C282.175 25.5 281.5 24.825 281.5 24C281.5 23.175 282.175 22.5 283 22.5C283.825 22.5 284.5 23.175 284.5 24C284.5 24.825 283.825 25.5 283 25.5Z" fill="white" fill-opacity="0.2"/>
+</g>
+<g clip-path="url(#clip3_54976_30450)">
+<path d="M219.5 26V30.5C219.5 31.325 218.825 32 218 32H216.5V26H219.5ZM201.5 26V32H200C199.175 32 198.5 31.325 198.5 30.5V26H201.5ZM209 6.5C201.545 6.5 195.5 12.545 195.5 20V30.5C195.5 32.99 197.51 35 200 35H204.5V23H198.5V20C198.5 14.195 203.195 9.5 209 9.5C214.805 9.5 219.5 14.195 219.5 20V23H213.5V35H218C220.49 35 222.5 32.99 222.5 30.5V20C222.5 12.545 216.455 6.5 209 6.5Z" fill="white" fill-opacity="0.2"/>
+</g>
+<g clip-path="url(#clip4_54976_30450)">
+<path d="M84 -6H66C64.35 -6 63 -4.65 63 -3V15C63 16.65 64.35 18 66 18H84C85.65 18 87 16.65 87 15V-3C87 -4.65 85.65 -6 84 -6ZM84 15H66V-3H84V15ZM72.75 13.5C74.82 13.5 76.5 11.82 76.5 9.75V1.5H81V-1.5H75V6.765C74.37 6.285 73.605 6 72.75 6C70.68 6 69 7.68 69 9.75C69 11.82 70.68 13.5 72.75 13.5ZM60 0H57V21C57 22.65 58.35 24 60 24H81V21H60V0Z" fill="white" fill-opacity="0.2"/>
+</g>
+<g clip-path="url(#clip5_54976_30450)">
+<path d="M167 77C158.72 77 152 83.72 152 92C152 100.28 158.72 107 167 107C175.28 107 182 100.28 182 92C182 83.72 175.28 77 167 77ZM164 98.75V85.25L173 92L164 98.75Z" fill="white" fill-opacity="0.2"/>
+</g>
+<g clip-path="url(#clip6_54976_30450)">
+<path d="M313 77.86L302.215 76.93L298 67L293.785 76.945L283 77.86L291.19 84.955L288.73 95.5L298 89.905L307.27 95.5L304.825 84.955L313 77.86ZM298 87.1L292.36 90.505L293.86 84.085L288.88 79.765L295.45 79.195L298 73.15L300.565 79.21L307.135 79.78L302.155 84.1L303.655 90.52L298 87.1Z" fill="white" fill-opacity="0.2"/>
+</g>
+<ellipse cx="357.5" cy="93" rx="20.5" ry="20" fill="white" fill-opacity="0.2"/>
+<ellipse cx="378.5" cy="73" rx="20.5" ry="20" fill="white" fill-opacity="0.2"/>
+<ellipse cx="-2.5" cy="44" rx="20.5" ry="20" fill="white" fill-opacity="0.2"/>
+<circle cx="341" cy="-3" r="20" fill="white" fill-opacity="0.2"/>
+<circle cx="79" cy="100" r="20" fill="white" fill-opacity="0.2"/>
+<circle cx="158" cy="3" r="20" fill="white" fill-opacity="0.2"/>
+</g>
+<defs>
+<clipPath id="clip0_54976_30450">
+<rect width="382" height="100" fill="white"/>
+</clipPath>
+<clipPath id="clip1_54976_30450">
+<rect width="36" height="36" fill="white" transform="translate(229 36)"/>
+</clipPath>
+<clipPath id="clip2_54976_30450">
+<rect width="36" height="36" fill="white" transform="translate(265 6)"/>
+</clipPath>
+<clipPath id="clip3_54976_30450">
+<rect width="36" height="36" fill="white" transform="translate(191 5)"/>
+</clipPath>
+<clipPath id="clip4_54976_30450">
+<rect width="36" height="36" fill="white" transform="translate(54 -9)"/>
+</clipPath>
+<clipPath id="clip5_54976_30450">
+<rect width="36" height="36" fill="white" transform="translate(149 74)"/>
+</clipPath>
+<clipPath id="clip6_54976_30450">
+<rect width="36" height="36" fill="white" transform="translate(280 64)"/>
+</clipPath>
+</defs>
+</svg>

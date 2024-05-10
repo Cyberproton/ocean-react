@@ -5,6 +5,7 @@ export enum AppRoute {
   EMAIL_VERIFICATION = "/email-verification",
   PASSWORD_RESET = "/password-reset",
   PROFILE = "/profile",
+  PROFILE_EDIT = "/profile/edit",
   SEARCH = "/search",
   ADVANCED_SEARCH = "/search/advanced",
   LIBRARY = "/library",

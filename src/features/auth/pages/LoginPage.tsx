@@ -1,13 +1,15 @@
 import logo from "@/assets/logo-and-label.svg";
-import { OutlinedInput } from "@/components/Input";
-import { Spinner } from "@/components/Spinner";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { toast } from "@/components/ui/use-toast";
 import { AppRoute } from "@/routes/routes";
 import { AppState, useAppDispatch } from "@/stores/store";
-import { Eye, EyeSlash } from "@phosphor-icons/react";
+import { Eye, EyeClosed, Spinner } from "@phosphor-icons/react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useLoginMutation } from "../api/login";
-import { passwordSlice } from "../stores/password-slice";
+import { loginInputSlice } from "../stores/password-slice";
 
 export const LoginPage = () => {
   const navigate = useNavigate();
@@ -15,109 +17,85 @@ export const LoginPage = () => {
 
   const [login, { isLoading }] = useLoginMutation();
 
-  const showPassword = useSelector(
-    (state: AppState) => state.password.showPassword
-  );
+  const loginInput = useSelector((state: AppState) => state.loginInput);
   const toggleShowPassword = () => {
-    dispatch(passwordSlice.actions.toggleShowPassword());
+    dispatch(loginInputSlice.actions.toggleShowPassword());
+  };
+  const updateEmail = (email: string) => {
+    dispatch(loginInputSlice.actions.updateEmail(email));
+  };
+  const updatePassword = (password: string) => {
+    dispatch(loginInputSlice.actions.updatePassword(password));
   };
 
   return (
     <div className="flex flex-col h-screen p-4">
       <div className="flex flex-1 flex-col justify-center items-center">
-        <img className="w-64" src={logo} alt="logo" />
-        <p className="text-3xl text-center font-bold my-8 bg-yellow-50">
-          Login to your account with a password then click the button to login
-          to the app
+        <img className="w-48" src={logo} alt="logo" />
+        <p className="text-2xl text-center font-bold my-8">
+          Login to your account
         </p>
-        <form className="w-full">
-          <OutlinedInput
-            label="Email"
-            inputProps={{
-              type: "email",
-              placeholder: "Enter your email",
-            }}
-          />
-          <OutlinedInput
-            label="Password"
-            inputProps={{
-              type: showPassword ? "text" : "password",
-              placeholder: "Enter your password",
-            }}
-            endAdornment={
-              <button
-                onClick={(e) => {
-                  e.preventDefault();
-                  toggleShowPassword();
-                }}
-              >
-                {showPassword ? <Eye /> : <EyeSlash />}
-              </button>
-            }
-          />
+        <form className="grid w-full gap-4">
+          <div className="grid w-full max-w-sm items-center gap-3">
+            <Label htmlFor="email">Email</Label>
+            <Input
+              id="email"
+              type="Email"
+              placeholder="Enter your email"
+              onChange={(e) => updateEmail(e.target.value)}
+            />
+          </div>
+          <div className="grid w-full max-w-sm items-center gap-3">
+            <Label htmlFor="password">Password</Label>
+            <Input
+              id="password"
+              type={loginInput.showPassword ? "text" : "password"}
+              placeholder="Enter your password"
+              onChange={(e) => updatePassword(e.target.value)}
+              endAdornment={
+                loginInput.showPassword ? (
+                  <Eye onClick={toggleShowPassword} />
+                ) : (
+                  <EyeClosed onClick={toggleShowPassword} />
+                )
+              }
+            />
+          </div>
         </form>
-        <Spinner width={4} size={1} />
-        <button className="button px-0 my-2 self-start">Reset password?</button>
-        <div className="flex">
-          <OutlinedInput
-            label="Email"
-            inputProps={{
-              type: "email",
-              placeholder: "Enter your email",
-            }}
-          />
-          <button
-            className="button-filled w-full my-6 mx-0"
-            onClick={() => {
-              login({
-                email: "",
-                password: "password",
-              });
-              navigate(AppRoute.HOME);
-            }}
-          >
-            <Spinner width={4} />
-          </button>
-          <button
-            className="button-filled w-full my-6"
-            onClick={() => {
-              login({
-                email: "",
-                password: "password",
-              });
-              navigate(AppRoute.HOME);
-            }}
-          >
-            sfddssf
-          </button>
-        </div>
-        <button
-          className="button-filled w-full my-6"
+        <Button variant="link" className="self-start px-0 mt-3">
+          Reset password?
+        </Button>
+        <Button
+          className="w-full my-6"
           onClick={() => {
             login({
-              email: "",
-              password: "password",
-            });
-            navigate(AppRoute.HOME);
+              email: loginInput.email,
+              password: loginInput.password,
+            })
+              .unwrap()
+              .then(() => {
+                navigate(AppRoute.HOME);
+                dispatch(loginInputSlice.actions.reset());
+              })
+              .catch(() => {
+                toast({
+                  title: "Invalid email or password",
+                  variant: "destructive",
+                });
+              });
           }}
         >
-          <Spinner width={6} />
-        </button>
-        <button
-          className="button-filled w-full my-6"
-          onClick={() => {
-            login({
-              email: "",
-              password: "password",
-            });
-            navigate(AppRoute.HOME);
-          }}
-        >
-          sfddssf
-        </button>
+          {isLoading ? <Spinner /> : "Login"}
+        </Button>
         <div className="flex flex-row items-center">
-          <p>Don't have an account?</p>
-          <button className="button ml-2">Register now</button>
+          <p className="text-sm">Don't have an account?</p>
+          <Button
+            variant="link"
+            className="px-2"
+            onClick={() => navigate(AppRoute.REGISTER)}
+          >
+            Register now
+          </Button>
         </div>
       </div>
     </div>
