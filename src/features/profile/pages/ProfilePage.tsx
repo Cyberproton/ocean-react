@@ -1,10 +1,10 @@
-import { MediaCard } from "@/components/LargeCard";
-import { TopBar } from "@/components/TopBar";
+import { ContentCard } from "@/components/ContentCard";
+import { TopBarWithProps } from "@/components/TopBar";
 import { Button } from "@/components/ui/button";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { AppRoute } from "@/routes/routes";
 import { PencilSimple, Playlist } from "@phosphor-icons/react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import ShowMoreText from "react-show-more-text";
 
@@ -13,7 +13,7 @@ export const ProfilePage = () => {
 
   return (
     <>
-      <TopBar
+      <TopBarWithProps
         showBackButton
         trailing={
           <Button
@@ -42,8 +42,12 @@ export const ProfilePage = () => {
         <p className="text-3xl">Không phải tôi</p>
         <p className="text-slate-500 mt-1">@tentaikhoancuatoi</p>
         <div className="mb-4">
-          <Button variant="link">100K người theo dõi</Button>
-          <Button variant="link">100K đang theo dõi</Button>
+          <Button variant="link">
+            <Link to={AppRoute.PROFILE_FOLLOWERS}>100K người theo dõi</Link>
+          </Button>
+          <Button variant="link">
+            <Link to={AppRoute.PROFILE_FOLLOWINGS}>100K đang theo dõi</Link>
+          </Button>
         </div>
         <ShowMoreText
           lines={3}
@@ -60,17 +64,19 @@ export const ProfilePage = () => {
         <div className="mt-12 w-full">
           <div className="flex items-center">
             <p className="text-xl flex-1 font-semibold">Danh sách phát</p>
-            <Button variant="link">Xem thêm</Button>
+            <Button variant="link">
+              <Link to={AppRoute.PROFILE_PLAYLISTS}>Xem tất cả</Link>
+            </Button>
           </div>
         </div>
       </div>
       <ScrollArea>
         <div className="flex gap-3 mb-4 mx-4">
-          <MediaCard icon={<Playlist />} />
-          <MediaCard icon={<Playlist />} />
-          <MediaCard icon={<Playlist />} />
-          <MediaCard />
-          <MediaCard />
+          <ContentCard size="md" actionIcon={<Playlist />} />
+          <ContentCard size="md" actionIcon={<Playlist />} />
+          <ContentCard size="md" actionIcon={<Playlist />} />
+          <ContentCard />
+          <ContentCard />
           <ScrollBar orientation="horizontal" />
         </div>
       </ScrollArea>

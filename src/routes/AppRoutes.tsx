@@ -5,9 +5,13 @@ import { RegisterPage } from "@/features/auth/pages/RegisterPage";
 import { LibraryPage } from "@/features/library/pages/LibraryPage";
 import { HomePage } from "@/features/misc/pages/HomePage";
 import { ProfileEditPage } from "@/features/profile/pages/ProfileEditPage";
+import { ProfileFollowersPage } from "@/features/profile/pages/ProfileFollowersPage";
+import { ProfileFollowingsPage } from "@/features/profile/pages/ProfileFollowingsPage";
 import { ProfilePage } from "@/features/profile/pages/ProfilePage";
+import { ProfilePlaylistsPage } from "@/features/profile/pages/ProfilePlaylistsPage";
 import { RankingsPage } from "@/features/rankings/pages/RankingsPage";
 import { SearchPage } from "@/features/search/pages/SearchPage";
+import { SettingsPage } from "@/features/settings/pages/SettingsPage";
 import { useRoutes } from "react-router-dom";
 import { AppRoute } from "./routes";
 
@@ -42,6 +46,18 @@ export const AppRoutes = () => {
       element: <ProfileEditPage />,
     },
     {
+      path: AppRoute.PROFILE_FOLLOWERS,
+      element: <ProfileFollowersPage />,
+    },
+    {
+      path: AppRoute.PROFILE_FOLLOWINGS,
+      element: <ProfileFollowingsPage />,
+    },
+    {
+      path: AppRoute.PROFILE_PLAYLISTS,
+      element: <ProfilePlaylistsPage />,
+    },
+    {
       path: AppRoute.SEARCH,
       element: <SearchPage />,
     },
@@ -71,7 +87,7 @@ export const AppRoutes = () => {
     },
     {
       path: AppRoute.SETTINGS,
-      element: <h1>Settings Page</h1>,
+      element: <SettingsPage />,
     },
     {
       path: AppRoute.NOT_FOUND,

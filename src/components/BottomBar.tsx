@@ -41,9 +41,9 @@ export const BottomBarItem = (props: {
   );
 };
 
-export const BottomBar = () => {
+export const BottomBar = (props: React.HTMLAttributes<HTMLDivElement>) => {
   return (
-    <div className="h-16">
+    <div className="h-16" {...props}>
       <div className="flex bg-secondary fixed bottom-0 left-0 right-0">
         <BottomBarItem
           icon={<House />}

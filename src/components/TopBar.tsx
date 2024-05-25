@@ -1,47 +1,79 @@
 import { AppRoute } from "@/routes/routes";
-import { ArrowLeft, Gear, IconContext } from "@phosphor-icons/react";
-import { Link, useNavigate } from "react-router-dom";
+import { cn } from "@/utils";
+import { Gear, IconContext } from "@phosphor-icons/react";
+import React from "react";
+import { Link } from "react-router-dom";
 import logo from "../assets/logo.svg";
+import { BackButton } from "./BackButton";
 import { Avatar, AvatarImage } from "./ui/avatar";
 import { Button } from "./ui/button";
 
 export const TOP_BAR_HEIGHT = 16;
 
-export const HomeTopBar = () => {
+export const TopBar = React.forwardRef<
+  HTMLDivElement,
+  React.HTMLAttributes<HTMLDivElement>
+>(({ className, ...props }, ref) => {
   const heightClassName = `h-${TOP_BAR_HEIGHT}`;
 
   return (
-    <div className={heightClassName}>
-      <div className="flex py-3 items-center fixed w-full bg-background z-50 shadow">
-        <img src={logo} alt="logo" className="h-10 ml-4 mr-4" />
-        <div className="grow"></div>
-
-        <Button variant="ghost" asChild>
-          <Link to={AppRoute.SETTINGS}>
-            <Gear className="text-2xl" />
-          </Link>
-        </Button>
-
-        <Button variant="ghost" asChild>
-          <Link to={AppRoute.PROFILE}>
-            <Avatar className="h-8 w-8">
-              <AvatarImage src="https://avatars.githubusercontent.com/u/66234343?v=4" />
-            </Avatar>
-          </Link>
-        </Button>
+    <IconContext.Provider
+      value={{
+        size: 24,
+      }}
+    >
+      {/* Dummy height in place of the floating top bar */}
+      <div className={cn(heightClassName, className)}>
+        <div
+          ref={ref}
+          className={cn(
+            "flex py-3 items-center fixed w-full bg-background z-50 border-b border-gray-300",
+            className
+          )}
+          {...props}
+        />
       </div>
-    </div>
+    </IconContext.Provider>
+  );
+});
+
+export const TopBarContent = React.forwardRef<
+  HTMLDivElement,
+  React.HTMLAttributes<HTMLDivElement>
+>(({ className, ...props }, ref) => {
+  return <div ref={ref} className={cn("flex-grow", className)} {...props} />;
+});
+
+export const HomeTopBar = () => {
+  return (
+    <TopBar>
+      <img src={logo} alt="logo" className="h-10 ml-4 mr-4" />
+      <div className="grow"></div>
+
+      <Button variant="ghost" asChild>
+        <Link to={AppRoute.SETTINGS}>
+          <Gear className="text-2xl" />
+        </Link>
+      </Button>
+
+      <Button variant="ghost" asChild>
+        <Link to={AppRoute.PROFILE}>
+          <Avatar className="h-8 w-8">
+            <AvatarImage src="https://avatars.githubusercontent.com/u/66234343?v=4" />
+          </Avatar>
+        </Link>
+      </Button>
+    </TopBar>
   );
 };
 
-export const TopBar = (props: {
+export const TopBarWithProps = (props: {
   showBackButton?: boolean;
   leading?: React.ReactNode;
   title?: React.ReactNode;
   trailing?: React.ReactNode;
 }) => {
   const { showBackButton, leading, title, trailing } = props;
-  const navigate = useNavigate();
 
   const heightClassName = `h-${TOP_BAR_HEIGHT}`;
 
@@ -52,26 +84,10 @@ export const TopBar = (props: {
       }}
     >
       <div className={heightClassName}>
-        <div className="flex py-3 items-center fixed w-full bg-background z-50 border-b border-gray-300">
-          {showBackButton && (
-            <Button
-              variant="ghost"
-              onClick={() => {
-                if (
-                  (window.history?.length && window.history.length > 1) ||
-                  window.history.state?.idx
-                ) {
-                  navigate(-1);
-                } else {
-                  navigate(AppRoute.HOME, { replace: true });
-                }
-              }}
-            >
-              <ArrowLeft />
-            </Button>
-          )}
+        <div className="flex py-3 items-center fixed w-full bg-background z-50 border-b border-border">
+          {showBackButton && <BackButton />}
           {leading}
-          {title}
+          <div className="text-xl">{title}</div>
           <div className="grow"></div>
           {trailing}
         </div>

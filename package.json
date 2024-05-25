@@ -4,12 +4,13 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "bunx --bun vite",
     "build": "tsc && vite build",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview"
   },
   "dependencies": {
+    "@formkit/auto-animate": "^0.8.2",
     "@hookform/resolvers": "^3.3.4",
     "@phosphor-icons/react": "^2.1.5",
     "@radix-ui/react-accordion": "^1.1.2",
@@ -60,7 +61,7 @@
     "sonner": "^1.4.41",
     "tailwind-merge": "^2.2.1",
     "tailwindcss-animate": "^1.0.7",
-    "vaul": "^0.9.0",
+    "vaul": "^0.9.1",
     "zod": "^3.23.0"
   },
   "devDependencies": {
@@ -79,5 +80,6 @@
     "typescript": "^5.2.2",
     "vite": "^5.1.4",
     "vite-tsconfig-paths": "^4.3.1"
-  }
+  },
+  "packageManager": "pnpm@9.1.1+sha256.9551e803dcb7a1839fdf5416153a844060c7bce013218ce823410532504ac10b"
 }
