@@ -1,6 +1,6 @@
 import { DetailsTab } from "@/components/TrackPlay/DetailsTab";
 import { NextPlayTab } from "@/components/TrackPlay/NextPlayTab";
-import { TrackTile } from "@/components/TrackPlay/TrackTile";
+import { TrackPlayTile } from "@/components/TrackPlay/TrackPlayTile";
 import autoAnimate from "@formkit/auto-animate";
 import {
   CaretDown,
@@ -13,19 +13,22 @@ import {
   SkipBack,
   SkipForward,
 } from "@phosphor-icons/react";
-import { useEffect, useRef, useState } from "react";
+import { MouseEventHandler, useEffect, useRef, useState } from "react";
 import { Avatar, AvatarImage } from "../ui/avatar";
-import { Button } from "../ui/button";
+import { Button, DivButton } from "../ui/button";
 import { DrawerClose } from "../ui/drawer";
 import { Slider } from "../ui/slider";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs";
 
-export const TrackPlay = () => {
+export const TrackPlay = ({
+  useCloseDrawerFunction,
+}: {
+  // Use this function to close the drawer instead of the default one
+  useCloseDrawerFunction?: MouseEventHandler<Element>;
+}) => {
   const [showCurrentPlay, setShowCurrentPlay] = useState(true);
   const [currentTab, setCurrentTab] = useState<string | undefined>(undefined);
   const ref = useRef<HTMLDivElement>(null);
-
-  console.log(currentTab);
 
   useEffect(() => {
     ref.current && autoAnimate(ref.current);
@@ -37,9 +40,19 @@ export const TrackPlay = () => {
         {showCurrentPlay && (
           <div className="h-full">
             <div className="flex items-center p-2">
-              <DrawerClose className="p-2">
-                <CaretDown className="text-2xl" />
-              </DrawerClose>
+              {useCloseDrawerFunction ? (
+                <DivButton
+                  onClick={useCloseDrawerFunction}
+                  variant="ghost"
+                  size="icon"
+                >
+                  <CaretDown className="text-2xl" />
+                </DivButton>
+              ) : (
+                <DrawerClose className="p-2">
+                  <CaretDown className="text-2xl" />
+                </DrawerClose>
+              )}
               <p className="grow text-xl text-center">Bài hát</p>
               <Button variant="ghost" size="icon">
                 <DotsThreeVertical weight="bold" />
@@ -97,7 +110,7 @@ export const TrackPlay = () => {
           </div>
         )}
         {!showCurrentPlay && (
-          <TrackTile
+          <TrackPlayTile
             onClick={() => {
               setShowCurrentPlay(true);
               setCurrentTab(undefined);
