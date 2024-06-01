@@ -1,8 +1,7 @@
-import { BottomBar } from "@/components/BottomBar";
 import {
   Tile,
-  TileAdornment,
   TileContent,
+  TileIcon,
   TileImage,
   TileSubtitle,
   TileTitle,
@@ -63,18 +62,18 @@ export const LibraryPage = () => {
         Hoạt động gần đây
       </Button>
       <Tile>
-        <TileAdornment className="bg-slate-500">
+        <TileIcon className="bg-slate-500">
           <ClockCounterClockwise className="text-2xl text-white" />
-        </TileAdornment>
+        </TileIcon>
         <TileContent>
           <TileTitle>Lịch sử nghe</TileTitle>
           <TileSubtitle>Được tạo tự động</TileSubtitle>
         </TileContent>
       </Tile>
       <Tile>
-        <TileAdornment className="bg-primary">
+        <TileIcon className="bg-primary">
           <Heart className="text-2xl text-white" weight="fill" />
-        </TileAdornment>
+        </TileIcon>
         <TileContent>
           <TileTitle>Danh sách yêu thích</TileTitle>
           <TileSubtitle>Những bài hát bạn đã thích</TileSubtitle>
@@ -97,7 +96,6 @@ export const LibraryPage = () => {
           <DotsThreeVertical weight="bold" />
         </Button>
       </Tile>
-      <BottomBar />
     </>
   );
 };
