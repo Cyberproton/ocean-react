@@ -9,6 +9,8 @@ export const BackButton = () => {
   return (
     <Button
       variant="ghost"
+      size="icon"
+      className="mx-3"
       onClick={() => {
         if (
           (window.history?.length && window.history.length > 1) ||
