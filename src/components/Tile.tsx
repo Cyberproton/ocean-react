@@ -1,7 +1,7 @@
 import { cn } from "@/utils";
 import React from "react";
 
-export interface TileProps {
+export interface InlineTileProps {
   title?: React.ReactNode;
   subtitle?: React.ReactNode;
   overline?: React.ReactNode;
@@ -10,7 +10,7 @@ export interface TileProps {
   className?: React.ReactNode;
 }
 
-export const TileWithInlineProps = (props: TileProps) => {
+export const TileWithInlineProps = (props: InlineTileProps) => {
   return (
     <div
       className={cn(
@@ -29,21 +29,26 @@ export const TileWithInlineProps = (props: TileProps) => {
   );
 };
 
-export const Tile = React.forwardRef<
-  HTMLDivElement,
-  React.HTMLAttributes<HTMLDivElement>
->(({ className, ...props }, ref) => {
-  return (
-    <div
-      ref={ref}
-      className={cn(
-        "flex items-center gap-4 px-4 py-2 rounded-lg hover:bg-accent hover:text-accent-foreground transition-colors",
-        className
-      )}
-      {...props}
-    />
-  );
-});
+export interface TileProps extends React.HTMLAttributes<HTMLDivElement> {
+  compact?: boolean;
+}
+
+export const Tile = React.forwardRef<HTMLDivElement, TileProps>(
+  ({ className, compact, ...props }, ref) => {
+    const padding = compact ? "px-2 py-1" : "px-4 py-2";
+    return (
+      <div
+        ref={ref}
+        className={cn(
+          "flex items-center gap-4 rounded-lg hover:bg-accent hover:text-accent-foreground transition-colors",
+          padding,
+          className
+        )}
+        {...props}
+      />
+    );
+  }
+);
 
 export const TileImage = React.forwardRef<
   HTMLImageElement,
@@ -79,7 +84,7 @@ export const TileOverline = React.forwardRef<
   return <div ref={ref} className={cn("text-xs", className)} {...props} />;
 });
 
-export const TileAdornment = React.forwardRef<
+export const TileIcon = React.forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement>
 >(({ className, ...props }, ref) => {
@@ -87,7 +92,7 @@ export const TileAdornment = React.forwardRef<
     <div
       ref={ref}
       className={cn(
-        "flex shrink-0 items-center justify-center w-14 h-14 rounded-lg",
+        "flex shrink-0 items-center justify-center w-14 h-14 text-2xl rounded-lg",
         className
       )}
       {...props}

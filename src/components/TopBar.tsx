@@ -37,6 +37,13 @@ export const TopBar = React.forwardRef<
   );
 });
 
+export const TopBarTitle = React.forwardRef<
+  HTMLDivElement,
+  React.HTMLAttributes<HTMLDivElement>
+>(({ className, ...props }, ref) => {
+  return <div ref={ref} className={cn("text-xl", className)} {...props} />;
+});
+
 export const TopBarContent = React.forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement>

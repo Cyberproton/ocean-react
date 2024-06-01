@@ -1,13 +1,7 @@
 import { AppRoute } from "@/routes/routes";
 import { Gear, SignOut, User } from "@phosphor-icons/react";
 import { Link } from "react-router-dom";
-import {
-  Tile,
-  TileAdornment,
-  TileContent,
-  TileSubtitle,
-  TileTitle,
-} from "./Tile";
+import { Tile, TileContent, TileIcon, TileSubtitle, TileTitle } from "./Tile";
 import { Avatar, AvatarImage } from "./ui/avatar";
 import { Separator } from "./ui/separator";
 import { Sheet, SheetContent, SheetTrigger } from "./ui/sheet";
@@ -23,11 +17,11 @@ export const UserButton = () => {
       <SheetContent className="px-0">
         <Link to={AppRoute.PROFILE}>
           <Tile className="mb-4">
-            <TileAdornment className="w-12 h-12">
+            <TileIcon className="w-12 h-12">
               <Avatar className="w-12 h-12">
                 <AvatarImage src="https://avatars.githubusercontent.com/u/66234343?v=4" />
               </Avatar>
-            </TileAdornment>
+            </TileIcon>
             <TileContent>
               <TileTitle>Trần Hoàng Quân</TileTitle>
               <TileSubtitle>@Cyberproton</TileSubtitle>
@@ -51,12 +45,14 @@ export const UserButton = () => {
           </Tile>
         </Link>
         <Separator className="my-2" />
-        <Tile>
-          <SignOut />
-          <TileContent>
-            <TileTitle>Đăng xuất</TileTitle>
-          </TileContent>
-        </Tile>
+        <Link to={AppRoute.LOGIN}>
+          <Tile>
+            <SignOut />
+            <TileContent>
+              <TileTitle>Đăng xuất</TileTitle>
+            </TileContent>
+          </Tile>
+        </Link>
       </SheetContent>
     </Sheet>
   );
