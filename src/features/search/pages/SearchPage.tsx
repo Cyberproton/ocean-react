@@ -1,4 +1,3 @@
-import { BottomBar } from "@/components/BottomBar";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
@@ -68,7 +67,6 @@ export const SearchPage = () => {
         </Popover>
       </div>
       {keyword ? <SearchResults /> : <RecentlyPlayed />}
-      <BottomBar />
     </div>
   );
 };
