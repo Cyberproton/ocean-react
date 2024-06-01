@@ -59,4 +59,23 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
 );
 Button.displayName = "Button";
 
-export { Button, buttonVariants };
+export interface DivButtonProps
+  extends React.ButtonHTMLAttributes<HTMLDivElement>,
+    VariantProps<typeof buttonVariants> {
+  asChild?: boolean;
+}
+
+const DivButton = React.forwardRef<HTMLDivElement, DivButtonProps>(
+  ({ className, variant, size, asChild = false, ...props }, ref) => {
+    const Comp = asChild ? Slot : "div";
+    return (
+      <Comp
+        className={cn(buttonVariants({ variant, size, className }))}
+        ref={ref}
+        {...props}
+      />
+    );
+  }
+);
+
+export { Button, DivButton, buttonVariants };
