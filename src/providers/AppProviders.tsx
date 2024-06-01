@@ -1,9 +1,10 @@
 import { Spinner } from "@/components/Spinner";
-import { PlayControlTileProvider } from "@/providers/PlayControlTileProvider";
+import { PlayControlProvider } from "@/providers/PlayControlProvider";
+import { router } from "@/routes/router";
 import { appStore } from "@/stores/store";
 import { Suspense } from "react";
 import { Provider } from "react-redux";
-import { BrowserRouter } from "react-router-dom";
+import { RouterProvider } from "react-router-dom";
 import { ThemeProvider } from "./ThemeProvider";
 
 export const AppProviders = ({ children }: { children: React.ReactNode }) => {
@@ -17,9 +18,10 @@ export const AppProviders = ({ children }: { children: React.ReactNode }) => {
         }
       >
         <ThemeProvider>
-          <PlayControlTileProvider>
-            <BrowserRouter>{children}</BrowserRouter>
-          </PlayControlTileProvider>
+          <PlayControlProvider>
+            <RouterProvider router={router} />
+            {children}
+          </PlayControlProvider>
         </ThemeProvider>
       </Suspense>
     </Provider>
