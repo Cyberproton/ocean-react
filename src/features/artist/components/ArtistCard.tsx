@@ -1,12 +1,16 @@
 import { ContentCard, ContentCardProps } from "@/components/ContentCard";
 import { Drawer, DrawerContent } from "@/components/ui/drawer";
 import { ArtistContextMenu } from "@/features/artist/components/ArtistContextMenu";
+import { Artist } from "@/features/artist/models/artist";
 import { AppRoute } from "@/routes/routes";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { LongPressEventType, useLongPress } from "use-long-press";
 
-export const ArtistCard = (props: ContentCardProps) => {
+export const ArtistCard = ({
+  artist,
+  ...props
+}: ContentCardProps & { artist: Artist }) => {
   const [isOpen, setIsOpen] = useState(false);
   const bindLongPress = useLongPress(
     () => {
@@ -29,6 +33,7 @@ export const ArtistCard = (props: ContentCardProps) => {
           }}
           {...bindLongPress()}
           {...props}
+          title={artist.name}
         />
       </Link>
       <Drawer

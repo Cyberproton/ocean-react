@@ -1,5 +1,5 @@
 import { BackButton } from "@/components/BackButton";
-import { FileUploader } from "@/components/FileUploader/file-uploader";
+import { FileUploader } from "@/components/FileUploader/file-dropzone";
 import { TopBar, TopBarTitle } from "@/components/TopBar";
 import { Label } from "@/components/ui/label";
 

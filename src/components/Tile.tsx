@@ -104,5 +104,5 @@ export const TileContent = React.forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement>
 >(({ className, ...props }, ref) => {
-  return <div ref={ref} className={cn("flex-grow", className)} {...props} />;
+  return <div ref={ref} className={cn("flex-1", className)} {...props} />;
 });

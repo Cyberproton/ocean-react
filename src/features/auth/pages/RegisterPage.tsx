@@ -7,15 +7,18 @@ import { Spinner } from "@/components/Spinner";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { toast } from "@/components/ui/use-toast";
+import { useRegisterMutation } from "@/features/auth/api/register";
+import { registerSlice } from "@/features/auth/stores/register-slice";
 import { AppRoute } from "@/routes/routes";
 import { useSelector } from "react-redux";
-import { registerSlice } from "../stores/register-slice";
 
 export const RegisterPage = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
+  const [register, { isLoading }] = useRegisterMutation();
 
-  const registerState = useSelector((state: AppState) => state.register);
+  const registerState = useSelector((state: AppState) => state.registerInput);
 
   const toggleShowPassword = () => {
     dispatch(registerSlice.actions.toggleShowPassword());
@@ -90,7 +93,26 @@ export const RegisterPage = () => {
             Terms of Service and Privacy Policy
           </Button>
         </div>
-        <Button className="w-full my-3" onClick={() => {}}>
+        <Button
+          className="w-full my-3"
+          onClick={() => {
+            register({
+              email: registerState.email,
+              password: registerState.password,
+            })
+              .unwrap()
+              .then(() => {
+                navigate(AppRoute.LOGIN);
+                //dispatch(registerSlice.actions.reset());
+              })
+              .catch(() => {
+                toast({
+                  title: "Invalid email or password",
+                  variant: "destructive",
+                });
+              });
+          }}
+        >
           {false ? <Spinner /> : "Register"}
         </Button>
         <div className="flex flex-row items-center">

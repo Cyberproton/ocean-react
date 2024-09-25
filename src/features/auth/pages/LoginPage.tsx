@@ -1,11 +1,13 @@
 import logo from "@/assets/logo-and-label.svg";
+import { Spinner } from "@/components/Spinner";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Separator } from "@/components/ui/separator";
 import { toast } from "@/components/ui/use-toast";
 import { AppRoute } from "@/routes/routes";
 import { AppState, useAppDispatch } from "@/stores/store";
-import { Eye, EyeClosed, Spinner } from "@phosphor-icons/react";
+import { Eye, EyeClosed } from "@phosphor-icons/react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useLoginMutation } from "../api/login";
@@ -77,7 +79,8 @@ export const LoginPage = () => {
                 navigate(AppRoute.HOME);
                 dispatch(loginInputSlice.actions.reset());
               })
-              .catch(() => {
+              .catch((e) => {
+                console.log(e);
                 toast({
                   title: "Invalid email or password",
                   variant: "destructive",
@@ -97,6 +100,14 @@ export const LoginPage = () => {
             Register now
           </Button>
         </div>
+        <Separator />
+        <Button
+          variant="link"
+          className="px-2 my-2"
+          onClick={() => navigate(AppRoute.HOME)}
+        >
+          Continue without login
+        </Button>
       </div>
     </div>
   );

@@ -9,7 +9,7 @@ import {
 } from "@/components/Tile";
 import { Button } from "@/components/ui/button";
 import { Drawer, DrawerContent } from "@/components/ui/drawer";
-import { TrackCardContextMenu } from "@/features/track/components/TrackCardContextMenu";
+import { TrackContextMenu } from "@/features/track/components/TrackCardContextMenu";
 import { DotsThreeVertical } from "@phosphor-icons/react";
 import { useState } from "react";
 import { LongPressEventType, useLongPress } from "use-long-press";
@@ -64,7 +64,7 @@ export const AlbumTile = ({
         }}
       >
         <DrawerContent>
-          <TrackCardContextMenu />
+          <TrackContextMenu />
         </DrawerContent>
       </Drawer>
     </>

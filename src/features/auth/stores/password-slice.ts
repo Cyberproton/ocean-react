@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   email: "",
@@ -16,7 +16,7 @@ export const loginInputSlice = createSlice({
     toggleShowPassword: (state) => {
       state.showPassword = !state.showPassword;
     },
-    updateEmail: (state, action) => {
+    updateEmail: (state, action: PayloadAction<string>) => {
       state.email = action.payload;
     },
     reset: () => initialState,

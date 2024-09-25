@@ -1,13 +1,21 @@
-import { ContentCard } from "@/components/ContentCard";
+import {
+  ContentCard,
+  ContentCardLoading,
+  ContentCardProps,
+} from "@/components/ContentCard";
 import { Drawer, DrawerContent } from "@/components/ui/drawer";
-import { TrackCardContextMenu } from "@/features/track/components/TrackCardContextMenu";
+import { Playlist } from "@/features/playlist/models/playlist";
 import { AppRoute } from "@/routes/routes";
+import { findSpecifiedImage } from "@/utils/image";
 import { Queue } from "@phosphor-icons/react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { LongPressEventType, useLongPress } from "use-long-press";
 
-export const PlaylistCard = () => {
+export const PlaylistCard = ({
+  playlist,
+  ...props
+}: { playlist: Playlist } & ContentCardProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const bindLongPress = useLongPress(
     () => {
@@ -29,6 +37,19 @@ export const PlaylistCard = () => {
             setIsOpen(true);
           }}
           {...bindLongPress()}
+          {...props}
+          title={playlist.name}
+          subtitle={
+            playlist.owner == null
+              ? "Unknown"
+              : playlist.owner.name ?? playlist.owner.username ?? "Unknown"
+          }
+          imageUrl={
+            findSpecifiedImage(playlist.covers, {
+              width: 300,
+              height: 300,
+            })?.url
+          }
         />
       </Link>
       <Drawer
@@ -37,10 +58,12 @@ export const PlaylistCard = () => {
           setIsOpen(open);
         }}
       >
-        <DrawerContent>
-          <TrackCardContextMenu />
-        </DrawerContent>
+        <DrawerContent></DrawerContent>
       </Drawer>
     </>
   );
+};
+
+export const PlaylistCardLoading = () => {
+  return <ContentCardLoading size="md" />;
 };

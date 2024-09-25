@@ -1,13 +1,21 @@
-import { ContentCard, ContentCardProps } from "@/components/ContentCard";
+import {
+  ContentCard,
+  ContentCardLoading,
+  ContentCardProps,
+} from "@/components/ContentCard";
 import { Drawer, DrawerContent } from "@/components/ui/drawer";
-import { TrackCardContextMenu } from "@/features/track/components/TrackCardContextMenu";
+import { Album } from "@/features/album/models/album";
 import { AppRoute } from "@/routes/routes";
+import { findSpecifiedImage } from "@/utils/image";
 import { VinylRecord } from "@phosphor-icons/react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { LongPressEventType, useLongPress } from "use-long-press";
 
-export const AlbumCard = (props: ContentCardProps) => {
+export const AlbumCard = ({
+  album,
+  ...props
+}: ContentCardProps & { album: Album }) => {
   const [isOpen, setIsOpen] = useState(false);
   const bindLongPress = useLongPress(
     () => {
@@ -30,6 +38,18 @@ export const AlbumCard = (props: ContentCardProps) => {
           }}
           {...bindLongPress()}
           {...props}
+          title={album.name}
+          subtitle={
+            album.artists != null && album.artists.length > 0
+              ? album.artists.map((a) => a.name).join(", ")
+              : "Unknown artists"
+          }
+          imageUrl={
+            findSpecifiedImage(album.covers, {
+              width: 300,
+              height: 300,
+            })?.url
+          }
         />
       </Link>
       <Drawer
@@ -38,10 +58,12 @@ export const AlbumCard = (props: ContentCardProps) => {
           setIsOpen(open);
         }}
       >
-        <DrawerContent>
-          <TrackCardContextMenu />
-        </DrawerContent>
+        <DrawerContent></DrawerContent>
       </Drawer>
     </>
   );
+};
+
+export const AlbumCardLoading = () => {
+  return <ContentCardLoading size="md" />;
 };

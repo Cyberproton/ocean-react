@@ -17,24 +17,15 @@ import { SearchByLyricsPage } from "@/features/search/pages/SearchByLyricsPage";
 import { SearchBySoundPage } from "@/features/search/pages/SearchBySoundPage";
 import { SearchPage } from "@/features/search/pages/SearchPage";
 import { SettingsPage } from "@/features/settings/pages/SettingsPage";
-import { WithBottomBarLayout } from "@/routes/AppRoutes";
+import { AppLayout, WithBottomBarLayout } from "@/routes/layout";
 import { AppRoute } from "@/routes/routes";
-import {
-  Outlet,
-  ScrollRestoration,
-  createBrowserRouter,
-} from "react-router-dom";
+import { createBrowserRouter } from "react-router-dom";
 
 // This file is a router configuration file. It is used to define the routes of the application.
 // Use ScrollRestoration to scroll to the top of the page when the route changes.
 export const router = createBrowserRouter([
   {
-    element: (
-      <>
-        <ScrollRestoration />
-        <Outlet />
-      </>
-    ),
+    element: <AppLayout />,
     children: [
       {
         path: "/",

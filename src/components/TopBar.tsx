@@ -28,6 +28,7 @@ export const TopBar = React.forwardRef<
           ref={ref}
           className={cn(
             "flex py-3 items-center fixed w-full bg-background z-50 border-b border-gray-300",
+            heightClassName,
             className
           )}
           {...props}

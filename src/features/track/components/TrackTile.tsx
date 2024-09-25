@@ -1,4 +1,3 @@
-import cover from "@/assets/track-cover-1.png";
 import {
   Tile,
   TileContent,
@@ -7,8 +6,10 @@ import {
   TileTitle,
 } from "@/components/Tile";
 import { Button } from "@/components/ui/button";
-import { Drawer, DrawerContent } from "@/components/ui/drawer";
-import { TrackCardContextMenu } from "@/features/track/components/TrackCardContextMenu";
+import { Drawer } from "@/components/ui/drawer";
+import { TrackContextMenuDialogContent } from "@/features/track/components/TrackCardContextMenu";
+import { Track } from "@/features/track/models/track";
+import { findSpecifiedImage } from "@/utils/image";
 import { DotsThreeVertical } from "@phosphor-icons/react";
 import { ReactNode, useState } from "react";
 import { LongPressEventType, useLongPress } from "use-long-press";
@@ -16,8 +17,13 @@ import { LongPressEventType, useLongPress } from "use-long-press";
 export const TrackTile = ({
   disableAction,
   leading,
+  track,
   ...props
-}: { disableAction?: boolean; leading?: ReactNode } & TileProps) => {
+}: {
+  track: Track;
+  disableAction?: boolean;
+  leading?: ReactNode;
+} & TileProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const bindLongPress = useLongPress(
     () => {
@@ -28,21 +34,37 @@ export const TrackTile = ({
     }
   );
 
+  // Workaround: For some reason, the track is undefined when the state is updated
+  if (!track) {
+    return null;
+  }
+
+  const cover = findSpecifiedImage(track?.album?.covers, {
+    width: 300,
+    height: 300,
+  })?.url;
+
   return (
     <>
       <Tile
-        {...props}
         onContextMenu={(e) => {
           e.preventDefault();
           setIsOpen(true);
         }}
         {...bindLongPress()}
+        {...props}
       >
         {leading}
-        <img src={cover} className="w-14 h-14 object-cover rounded-lg" />
+        {cover != null ? (
+          <img src={cover} className="w-14 h-14 object-cover rounded-lg" />
+        ) : (
+          <div className="w-14 h-14 object-cover rounded-lg bg-secondary" />
+        )}
         <TileContent>
-          <TileTitle>Waltz for Debby</TileTitle>
-          <TileSubtitle>Bill Evans</TileSubtitle>
+          <TileTitle className="line-clamp-1">{track.name}</TileTitle>
+          <TileSubtitle className="line-clamp-1">
+            {track.artists?.map((a) => a.name).join(", ") ?? "Unknown artist"}
+          </TileSubtitle>
         </TileContent>
         {disableAction ? null : (
           <Button
@@ -63,9 +85,7 @@ export const TrackTile = ({
           setIsOpen(open);
         }}
       >
-        <DrawerContent>
-          <TrackCardContextMenu />
-        </DrawerContent>
+        <TrackContextMenuDialogContent track={track} />
       </Drawer>
     </>
   );
