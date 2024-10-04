@@ -9,4 +9,5 @@ export type Playlist = {
   owner?: Profile;
   totalTracks: number;
   popularity: number;
+  isSavedByCurrentUser?: boolean;
 };

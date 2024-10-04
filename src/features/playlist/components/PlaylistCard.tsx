@@ -6,7 +6,7 @@ import {
 import { Drawer, DrawerContent } from "@/components/ui/drawer";
 import { Playlist } from "@/features/playlist/models/playlist";
 import { AppRoute } from "@/routes/routes";
-import { findSpecifiedImage } from "@/utils/image";
+import { findSpecifiedImageOrFirst } from "@/utils/image";
 import { Queue } from "@phosphor-icons/react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
@@ -45,7 +45,7 @@ export const PlaylistCard = ({
               : playlist.owner.name ?? playlist.owner.username ?? "Unknown"
           }
           imageUrl={
-            findSpecifiedImage(playlist.covers, {
+            findSpecifiedImageOrFirst(playlist.covers, {
               width: 300,
               height: 300,
             })?.url
