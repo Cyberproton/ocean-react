@@ -14,6 +14,8 @@ export enum AppRoute {
   SEARCH_BY_SOUND = "/search/by-sound",
   ADVANCED_SEARCH = "/search/advanced",
   LIBRARY = "/library",
+  HISTORY = "/history",
+  LIKED_TRACKS = "/liked-tracks",
   EXPLORE = "/explore",
   TRACK = "/track/:trackId",
   ALBUM = "/album/:albumId",

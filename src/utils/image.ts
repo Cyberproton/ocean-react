@@ -17,7 +17,7 @@ export const createImage = (url: string): Promise<HTMLImageElement> =>
     image.src = url;
   });
 
-export const findSpecifiedImage = (
+export const findSpecifiedImageOrFirst = (
   images: ImageResponse[] | null | undefined,
   match: { width?: number; height?: number }
 ) => {
@@ -37,5 +37,5 @@ export const findSpecifiedImage = (
   if (image) {
     return image;
   }
-  return null;
+  return images[0];
 };

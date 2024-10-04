@@ -3,7 +3,9 @@ import { EmailVerificationPage } from "@/features/auth/pages/EmailVerificationPa
 import { LoginPage } from "@/features/auth/pages/LoginPage";
 import { PasswordResetPage } from "@/features/auth/pages/PasswordResetPage";
 import { RegisterPage } from "@/features/auth/pages/RegisterPage";
-import { LibraryPage } from "@/features/library/pages/LibraryPage";
+import { HistoryPage } from "@/features/collection/pages/HistoryPage";
+import { LibraryPage } from "@/features/collection/pages/LibraryPage";
+import { LikedTrackPage } from "@/features/collection/pages/LikedTrackPage";
 import { HomePage } from "@/features/misc/pages/HomePage";
 import { PlaylistEditPage } from "@/features/playlist/pages/PlaylistEditPage";
 import { PlaylistPage } from "@/features/playlist/pages/PlaylistPage";
@@ -51,6 +53,8 @@ export const router = createBrowserRouter([
           { path: AppRoute.SEARCH_BY_SOUND, element: <SearchBySoundPage /> },
           { path: AppRoute.ADVANCED_SEARCH, element: <h1>Advanced Search</h1> },
           { path: AppRoute.LIBRARY, element: <LibraryPage /> },
+          { path: AppRoute.HISTORY, element: <HistoryPage /> },
+          { path: AppRoute.LIKED_TRACKS, element: <LikedTrackPage /> },
           { path: AppRoute.EXPLORE, element: <RankingsPage /> },
           { path: AppRoute.TRACK, element: <h1>Track Page</h1> },
           { path: AppRoute.ALBUM, element: <AlbumPage /> },
