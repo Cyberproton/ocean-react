@@ -9,7 +9,7 @@ import { Star } from "@phosphor-icons/react";
 
 export const RecentlyPlayedTracks = () => {
   const tracksQuery = useGetHistoriesQuery({
-    type: HistoryType.TRACK,
+    types: [HistoryType.TRACK],
     limit: 4,
   });
 

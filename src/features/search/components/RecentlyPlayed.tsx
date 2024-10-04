@@ -11,15 +11,15 @@ import { TrackCard } from "@/features/track/components/TrackCard";
 export const RecentlyPlayed = () => {
   const trackQuery = useGetHistoriesQuery({
     limit: 4,
-    type: HistoryType.TRACK,
+    types: [HistoryType.TRACK],
   });
   const albumQuery = useGetHistoriesQuery({
     limit: 4,
-    type: HistoryType.ALBUM,
+    types: [HistoryType.ALBUM],
   });
   const artistQuery = useGetHistoriesQuery({
     limit: 4,
-    type: HistoryType.ARTIST,
+    types: [HistoryType.ARTIST],
   });
 
   const tracks = trackQuery.data?.items.map((i) => i.track) ?? [];
