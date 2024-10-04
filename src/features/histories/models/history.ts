@@ -1,4 +1,4 @@
-import { ApiQuery } from "@/api/query";
+import { ApiQuery } from "@/api/dto";
 import { Album } from "@/features/album/models/album";
 import { Artist } from "@/features/artist/models/artist";
 import { User } from "@/features/auth/model/User";
@@ -24,5 +24,5 @@ export type History = {
 };
 
 export type HistoryQuery = ApiQuery & {
-  type?: HistoryType;
+  types?: HistoryType[];
 };

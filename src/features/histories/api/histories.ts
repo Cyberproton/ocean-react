@@ -5,7 +5,10 @@ import { transformStandardResponse } from "@/utils/api";
 
 export const historiesApi = authApi.injectEndpoints({
   endpoints: (build) => ({
-    getHistories: build.query<PaginationResponse<History>, HistoryQuery>({
+    getHistories: build.query<
+      PaginationResponse<History>,
+      HistoryQuery | null | undefined
+    >({
       query: (arg) => ({
         url: "/histories",
         method: "GET",
