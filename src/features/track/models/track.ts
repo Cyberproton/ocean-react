@@ -10,4 +10,5 @@ export type Track = {
   artists?: Artist[];
   numberOfPlays: number;
   popularity: number;
+  isLikedByCurrentUser?: boolean;
 };

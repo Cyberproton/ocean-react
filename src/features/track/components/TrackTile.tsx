@@ -9,7 +9,7 @@ import { Button } from "@/components/ui/button";
 import { Drawer } from "@/components/ui/drawer";
 import { TrackContextMenuDialogContent } from "@/features/track/components/TrackCardContextMenu";
 import { Track } from "@/features/track/models/track";
-import { findSpecifiedImage } from "@/utils/image";
+import { findSpecifiedImageOrFirst } from "@/utils/image";
 import { DotsThreeVertical } from "@phosphor-icons/react";
 import { ReactNode, useState } from "react";
 import { LongPressEventType, useLongPress } from "use-long-press";
@@ -39,7 +39,7 @@ export const TrackTile = ({
     return null;
   }
 
-  const cover = findSpecifiedImage(track?.album?.covers, {
+  const cover = findSpecifiedImageOrFirst(track?.album?.covers, {
     width: 300,
     height: 300,
   })?.url;
@@ -62,7 +62,7 @@ export const TrackTile = ({
         )}
         <TileContent>
           <TileTitle className="line-clamp-1">{track.name}</TileTitle>
-          <TileSubtitle className="line-clamp-1">
+          <TileSubtitle className="line-clamp-2">
             {track.artists?.map((a) => a.name).join(", ") ?? "Unknown artist"}
           </TileSubtitle>
         </TileContent>

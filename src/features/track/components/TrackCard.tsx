@@ -13,7 +13,7 @@ import {
 import { usePlayControl } from "@/contexts/play-control";
 import { TrackContextMenu } from "@/features/track/components/TrackCardContextMenu";
 import { Track } from "@/features/track/models/track";
-import { findSpecifiedImage } from "@/utils/image";
+import { findSpecifiedImageOrFirst } from "@/utils/image";
 import { Play } from "@phosphor-icons/react";
 import { useState } from "react";
 import { LongPressEventType, useLongPress } from "use-long-press";
@@ -56,7 +56,7 @@ export const TrackCard = (props: ContentCardProps & { track: Track }) => {
                 : track.artists.map((a) => a.name).join(", ")
             }
             imageUrl={
-              findSpecifiedImage(track.album?.covers, {
+              findSpecifiedImageOrFirst(track.album?.covers, {
                 width: 300,
                 height: 300,
               })?.url
