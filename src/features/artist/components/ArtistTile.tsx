@@ -2,21 +2,23 @@ import cover from "@/assets/track-cover-1.png";
 import {
   Tile,
   TileContent,
-  TileOverline,
   TileProps,
+  TileSubtitle,
   TileTitle,
 } from "@/components/Tile";
 import { Button } from "@/components/ui/button";
 import { Drawer, DrawerContent } from "@/components/ui/drawer";
 import { ArtistContextMenu } from "@/features/artist/components/ArtistContextMenu";
+import { Artist } from "@/features/artist/models/artist";
 import { DotsThreeVertical } from "@phosphor-icons/react";
 import { useState } from "react";
 import { LongPressEventType, useLongPress } from "use-long-press";
 
 export const ArtistTile = ({
+  artist,
   disableAction,
   ...props
-}: { disableAction?: boolean } & TileProps) => {
+}: { artist: Artist; disableAction?: boolean } & TileProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const bindLongPress = useLongPress(
     () => {
@@ -26,6 +28,10 @@ export const ArtistTile = ({
       detect: LongPressEventType.Mouse,
     }
   );
+
+  if (artist == null) {
+    return null;
+  }
 
   return (
     <>
@@ -39,8 +45,10 @@ export const ArtistTile = ({
       >
         <img src={cover} className="w-14 h-14 object-cover rounded-full" />
         <TileContent>
-          <TileOverline>Nghệ sĩ</TileOverline>
-          <TileTitle>Bill Evans</TileTitle>
+          <TileTitle className="line-clamp-1">
+            {artist.name ?? artist.username}
+          </TileTitle>
+          <TileSubtitle className="line-clamp-2">Nghệ sĩ</TileSubtitle>
         </TileContent>
         {disableAction ? null : (
           <Button
@@ -62,7 +70,7 @@ export const ArtistTile = ({
         }}
       >
         <DrawerContent>
-          <ArtistContextMenu />
+          <ArtistContextMenu artist={artist} />
         </DrawerContent>
       </Drawer>
     </>

@@ -43,7 +43,7 @@ export const ArtistCard = ({
         }}
       >
         <DrawerContent>
-          <ArtistContextMenu />
+          <ArtistContextMenu artist={artist} />
         </DrawerContent>
       </Drawer>
     </>
