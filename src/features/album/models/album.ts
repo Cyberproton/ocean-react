@@ -20,4 +20,5 @@ export type Album = {
   copyright: Copyright;
   artists: Artist[];
   popularity: number;
+  isSavedByCurrentUser?: boolean;
 };

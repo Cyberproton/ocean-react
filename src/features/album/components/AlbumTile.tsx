@@ -1,23 +1,26 @@
-import cover from "@/assets/track-cover-1.png";
 import {
   Tile,
   TileContent,
-  TileOverline,
+  TileImage,
   TileProps,
   TileSubtitle,
   TileTitle,
 } from "@/components/Tile";
 import { Button } from "@/components/ui/button";
 import { Drawer, DrawerContent } from "@/components/ui/drawer";
-import { TrackContextMenu } from "@/features/track/components/TrackCardContextMenu";
+import { AlbumContextMenu } from "@/features/album/components/AlbumContextMenu";
+import { Album } from "@/features/album/models/album";
+import { findSpecifiedImageOrFirst } from "@/utils/image";
+import { dotSeparator } from "@/utils/string";
 import { DotsThreeVertical } from "@phosphor-icons/react";
 import { useState } from "react";
 import { LongPressEventType, useLongPress } from "use-long-press";
 
 export const AlbumTile = ({
+  album,
   disableAction,
   ...props
-}: { disableAction?: boolean } & TileProps) => {
+}: { album: Album; disableAction?: boolean } & TileProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const bindLongPress = useLongPress(
     () => {
@@ -27,6 +30,10 @@ export const AlbumTile = ({
       detect: LongPressEventType.Mouse,
     }
   );
+
+  if (album == null) {
+    return null;
+  }
 
   return (
     <>
@@ -38,11 +45,21 @@ export const AlbumTile = ({
         }}
         {...bindLongPress()}
       >
-        <img src={cover} className="w-14 h-14 object-cover rounded-lg" />
+        <TileImage
+          src={
+            findSpecifiedImageOrFirst(album.covers, { width: 300, height: 300 })
+              ?.url
+          }
+        />
         <TileContent>
-          <TileOverline>Đĩa nhạc</TileOverline>
-          <TileTitle>Waltz for Debby</TileTitle>
-          <TileSubtitle>Bill Evans</TileSubtitle>
+          <TileTitle className="line-clamp-1">{album.name}</TileTitle>
+          <TileSubtitle className="line-clamp-2">
+            Đĩa nhạc{" " + dotSeparator + " "}
+            {album.artists
+              .map((a) => a.name ?? a.username)
+              .filter((a) => a)
+              .join(", ")}
+          </TileSubtitle>
         </TileContent>
         {disableAction ? null : (
           <Button
@@ -64,7 +81,7 @@ export const AlbumTile = ({
         }}
       >
         <DrawerContent>
-          <TrackContextMenu />
+          <AlbumContextMenu album={album} />
         </DrawerContent>
       </Drawer>
     </>

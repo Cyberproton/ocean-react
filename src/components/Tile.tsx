@@ -1,31 +1,43 @@
 import { cn } from "@/utils";
 import React from "react";
 
-export interface InlineTileProps {
-  title?: React.ReactNode;
-  subtitle?: React.ReactNode;
-  overline?: React.ReactNode;
-  leading?: React.ReactNode;
-  trailing?: React.ReactNode;
-  className?: React.ReactNode;
+export interface QuickTileProps extends React.HTMLAttributes<HTMLDivElement> {
+  tileProps: {
+    title?: React.ReactNode;
+    subtitle?: React.ReactNode;
+    overline?: React.ReactNode;
+    leading?: React.ReactNode;
+    leadingIcon?: React.ReactNode;
+    trailing?: React.ReactNode;
+    trailingIcon?: React.ReactNode;
+    compact?: boolean;
+  };
 }
 
-export const TileWithInlineProps = (props: InlineTileProps) => {
+export const QuickTile = ({ tileProps, ...props }: QuickTileProps) => {
+  const {
+    title,
+    subtitle,
+    overline,
+    leading,
+    leadingIcon,
+    trailing,
+    trailingIcon,
+    compact,
+  } = tileProps;
+
   return (
-    <div
-      className={cn(
-        "flex items-center gap-4 px-4 py-2 hover:bg-accent hover:text-accent-foreground",
-        props.className
-      )}
-    >
-      {props.leading}
-      <div className="flex-1">
-        <div className="text-xs text-muted-foreground">{props.overline}</div>
-        <div className="font-medium">{props.title}</div>
-        <div className="text-sm text-muted-foreground">{props.subtitle}</div>
-      </div>
-      {props.trailing}
-    </div>
+    <Tile compact={compact} {...props}>
+      {leading}
+      {leadingIcon ? <TileIcon>{leadingIcon}</TileIcon> : null}
+      <TileContent>
+        {overline ? <TileOverline>{overline}</TileOverline> : null}
+        {title ? <TileTitle>{title}</TileTitle> : null}
+        {subtitle ? <TileSubtitle>{subtitle}</TileSubtitle> : null}
+      </TileContent>
+      {trailingIcon ? <TileIcon>{trailingIcon}</TileIcon> : null}
+      {trailing}
+    </Tile>
   );
 };
 
@@ -53,11 +65,16 @@ export const Tile = React.forwardRef<HTMLDivElement, TileProps>(
 export const TileImage = React.forwardRef<
   HTMLImageElement,
   React.ImgHTMLAttributes<HTMLImageElement>
->(({ className, ...props }, ref) => {
+>(({ className, src, ...props }, ref) => {
+  if (!src) {
+    return <div className="w-14 h-14 object-cover rounded-lg bg-secondary" />;
+  }
+
   return (
     <img
       ref={ref}
       className={cn("w-14 h-14 object-cover rounded-lg", className)}
+      src={src}
       {...props}
     />
   );

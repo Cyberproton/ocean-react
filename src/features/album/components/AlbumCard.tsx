@@ -6,7 +6,7 @@ import {
 import { Drawer, DrawerContent } from "@/components/ui/drawer";
 import { Album } from "@/features/album/models/album";
 import { AppRoute } from "@/routes/routes";
-import { findSpecifiedImage } from "@/utils/image";
+import { findSpecifiedImageOrFirst } from "@/utils/image";
 import { VinylRecord } from "@phosphor-icons/react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
@@ -45,7 +45,7 @@ export const AlbumCard = ({
               : "Unknown artists"
           }
           imageUrl={
-            findSpecifiedImage(album.covers, {
+            findSpecifiedImageOrFirst(album.covers, {
               width: 300,
               height: 300,
             })?.url
