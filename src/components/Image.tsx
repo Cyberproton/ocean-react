@@ -36,7 +36,6 @@ export const Image = ({
         {...props}
         onLoad={() => {
           setStatus(ImageStatus.Loaded);
-          console.log("loaded");
         }}
         onError={() => setStatus(ImageStatus.Error)}
       />
