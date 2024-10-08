@@ -1,4 +1,3 @@
-import { ContentCard } from "@/components/ContentCard";
 import { Reload } from "@/components/Reload";
 import { Spinner } from "@/components/Spinner";
 import { TopBarWithProps } from "@/components/TopBar";
@@ -8,16 +7,33 @@ import { useGetMyProfileQuery } from "@/features/profile/api/profile";
 import { Profile } from "@/features/profile/models/profile";
 import { AppRoute } from "@/routes/routes";
 import { compactFormatNumber } from "@/utils/number";
-import { PencilSimple, Playlist } from "@phosphor-icons/react";
+import { PencilSimple } from "@phosphor-icons/react";
 import { Link, useNavigate } from "react-router-dom";
 
 import { Image } from "@/components/Image";
+import { useGetMyCollectionQuery } from "@/features/collection/api/collection";
+import { CollectionItemType } from "@/features/collection/models/collection";
+import { PlaylistCard } from "@/features/playlist/components/PlaylistCard";
+import { useCountMyFollowersAndFollowingsQuery } from "@/features/user/api/user";
+import { findSpecifiedImageOrFirst } from "@/utils/image";
 import ShowMoreText from "react-show-more-text";
 
 export const ProfilePage = () => {
   const navigate = useNavigate();
   const profileQuery = useGetMyProfileQuery();
   const profile: Profile = profileQuery.data?.data;
+
+  const countFollowersAndFollowingsQuery =
+    useCountMyFollowersAndFollowingsQuery();
+  const countFollowersAndFollowings = countFollowersAndFollowingsQuery.data;
+
+  const createdPlaylistQuery = useGetMyCollectionQuery({
+    types: [CollectionItemType.CREATED_PLAYLIST],
+    limit: 4,
+  });
+  const createdPlaylists = createdPlaylistQuery.data?.items.map(
+    (item) => item.playlist
+  );
 
   return (
     <>
@@ -43,82 +59,102 @@ export const ProfilePage = () => {
         </div>
       )}
 
-      {profileQuery.isSuccess && (
-        <>
-          <div className="relative mb-16">
-            {profile?.bannerUrl ? (
+      {profileQuery.isSuccess &&
+        createdPlaylistQuery.isSuccess &&
+        countFollowersAndFollowingsQuery.isSuccess && (
+          <>
+            <div className="relative mb-16">
+              {profile?.banners ? (
+                <Image
+                  src={
+                    findSpecifiedImageOrFirst(profile.banners, {
+                      width: 400,
+                      height: (400 * 9) / 16,
+                    })?.url
+                  }
+                  alt="profile"
+                  className="w-full h-44 bg-gray-300"
+                />
+              ) : (
+                <div className="w-full h-44 bg-gray-300" />
+              )}
               <Image
-                src={profile?.bannerUrl}
-                alt="profile"
-                className="w-full h-44"
-              />
-            ) : (
-              <div className="w-full h-44 bg-gray-300" />
-            )}
-            <Image
-              src={profile?.avatarUrl}
-              width={100}
-              height={100}
-              alt="avatar"
-              className="rounded-full border-2 border-white absolute -bottom-12 left-0 right-0 mx-auto size-28 object-cover"
-              showSkeleton={false}
-            />
-          </div>
-          <div className="flex flex-col items-center m-4">
-            {profile.name && <p className="text-3xl">{profile.name}</p>}
-            {profile.username && (
-              <p
-                className={
-                  profile.name ? "text-slate-500 mt-1" : "text-2xl my-1"
+                src={
+                  findSpecifiedImageOrFirst(profile.avatars, {
+                    width: 100,
+                    height: 100,
+                  })?.url
                 }
-              >
-                @{profile.username}
-              </p>
-            )}
-            <div className="mb-4">
-              <Button variant="link">
-                <Link to={AppRoute.PROFILE_FOLLOWERS}>
-                  {compactFormatNumber(profile.numberOfFollowers)} người theo
-                  dõi
-                </Link>
-              </Button>
-              <Button variant="link">
-                <Link to={AppRoute.PROFILE_FOLLOWINGS}>
-                  {compactFormatNumber(profile.numberOfFollowings)} đang theo
-                  dõi
-                </Link>
-              </Button>
+                width={100}
+                height={100}
+                alt="avatar"
+                className="rounded-full border-2 border-white absolute -bottom-12 left-0 right-0 mx-auto size-28 object-cover bg-secondary"
+                showSkeleton={false}
+              />
             </div>
-            {profile.bio && (
-              <ShowMoreText
-                lines={3}
-                more={<p className="text-primary">Xem thêm</p>}
-                less={<p className="text-primary">Rút gọn</p>}
-              >
-                {profile.bio}
-              </ShowMoreText>
-            )}
-            <div className="mt-12 w-full">
-              <div className="flex items-center">
-                <p className="text-xl flex-1 font-semibold">Danh sách phát</p>
+            <div className="flex flex-col items-center m-4">
+              {profile.name && <p className="text-3xl">{profile.name}</p>}
+              {profile.username && (
+                <p
+                  className={
+                    profile.name ? "text-slate-500 mt-1" : "text-2xl my-1"
+                  }
+                >
+                  @{profile.username}
+                </p>
+              )}
+              <div className="mb-4">
                 <Button variant="link">
-                  <Link to={AppRoute.PROFILE_PLAYLISTS}>Xem tất cả</Link>
+                  <Link to={AppRoute.PROFILE_FOLLOWERS}>
+                    {compactFormatNumber(
+                      countFollowersAndFollowings?.numberOfFollowers ?? 0
+                    )}{" "}
+                    người theo dõi
+                  </Link>
+                </Button>
+                <Button variant="link">
+                  <Link to={AppRoute.PROFILE_FOLLOWINGS}>
+                    {compactFormatNumber(
+                      countFollowersAndFollowings?.numberOfFollowings ?? 0
+                    )}{" "}
+                    đang theo dõi
+                  </Link>
                 </Button>
               </div>
+              {profile.bio && (
+                <ShowMoreText
+                  lines={3}
+                  more={<p className="text-primary">Xem thêm</p>}
+                  less={<p className="text-primary">Rút gọn</p>}
+                >
+                  {profile.bio}
+                </ShowMoreText>
+              )}
             </div>
-          </div>
-          <ScrollArea>
-            <div className="flex gap-3 mb-4 mx-4">
-              <ContentCard size="md" actionIcon={<Playlist />} />
-              <ContentCard size="md" actionIcon={<Playlist />} />
-              <ContentCard size="md" actionIcon={<Playlist />} />
-              <ContentCard />
-              <ContentCard />
-              <ScrollBar orientation="horizontal" />
-            </div>
-          </ScrollArea>
-        </>
-      )}
+            {createdPlaylists?.length !== 0 && (
+              <>
+                <div className="m-4 mt-12">
+                  <div className="flex items-center">
+                    <p className="text-xl flex-1 font-semibold">
+                      Danh sách phát
+                    </p>
+                    <Button variant="link">
+                      <Link to={AppRoute.PROFILE_PLAYLISTS}>Xem tất cả</Link>
+                    </Button>
+                  </div>
+                </div>
+                <ScrollArea>
+                  <div className="flex gap-3 mb-4 mx-4">
+                    {createdPlaylists?.map((playlist) => (
+                      <PlaylistCard key={playlist.id} playlist={playlist} />
+                    ))}
+                    <ScrollBar orientation="horizontal" />
+                  </div>
+                </ScrollArea>
+              </>
+            )}
+          </>
+        )}
     </>
   );
 };

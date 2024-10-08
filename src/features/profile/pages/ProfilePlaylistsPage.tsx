@@ -1,4 +1,4 @@
-import { TileWithInlineProps } from "@/components/Tile";
+import { QuickTile } from "@/components/Tile";
 import { TopBarWithProps } from "@/components/TopBar";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
@@ -8,7 +8,7 @@ export const ProfilePlaylistsPage = () => {
   return (
     <>
       <TopBarWithProps showBackButton title="Danh sách phát" />
-      <TileWithInlineProps
+      <QuickTile
         title="Thong thả"
         subtitle="Danh sách phát - Tạo bởi Hoàng Quân - 32 bài hát"
         leading={
@@ -22,7 +22,7 @@ export const ProfilePlaylistsPage = () => {
           </Button>
         }
       />
-      <TileWithInlineProps
+      <QuickTile
         title="Thong thả"
         subtitle="Danh sách phát - Tạo bởi Hoàng Quân - 32 bài hát"
         leading={

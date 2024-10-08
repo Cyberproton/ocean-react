@@ -22,7 +22,8 @@ import {
 } from "@/features/profile/api/profile";
 import { ImageCropperDialog } from "@/features/profile/components/ImageCropperDialog";
 import { Profile } from "@/features/profile/models/profile";
-import { useUpdateUserUsernameMutation } from "@/features/user/api/user";
+import { useUpdateMyUsernameMutation } from "@/features/user/api/user";
+import { findSpecifiedImageOrFirst } from "@/utils/image";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { At, PencilSimple } from "@phosphor-icons/react";
 import { useState } from "react";
@@ -61,7 +62,7 @@ const formSchema = z.object({
 export const ProfileEditPage = () => {
   const profileQuery = useGetMyProfileQuery();
   const [updateUserUsername, { isLoading: isUpdating }] =
-    useUpdateUserUsernameMutation();
+    useUpdateMyUsernameMutation();
   const [updateProfileMutation] = useUpdateProfileMutation();
   const [updateProfileAvatarMutation] = useUpdateProfileAvatarMutation();
   const [updateProfileBannerMutation] = useUpdateProfileBannerMutation();
@@ -77,32 +78,26 @@ export const ProfileEditPage = () => {
     resolver: zodResolver(formSchema),
     disabled: isUpdating,
   });
-  const {
-    openFilePicker: openAvatarPicker,
-    filesContent: avatarContent,
-    plainFiles: avatarFiles,
-  } = useFilePicker({
-    accept: ["image/*"],
-    readAs: "DataURL",
-    onFilesSuccessfullySelected: (files) => {
-      if (files.filesContent.length > 0) {
-        setOpenAvatarCropper(true);
-      }
-    },
-  });
-  const {
-    openFilePicker: openBannerPicker,
-    filesContent: bannerContent,
-    plainFiles: bannerFiles,
-  } = useFilePicker({
-    accept: ["image/*"],
-    readAs: "DataURL",
-    onFilesSuccessfullySelected: (files) => {
-      if (files.filesContent.length > 0) {
-        setOpenBannerCropper(true);
-      }
-    },
-  });
+  const { openFilePicker: openAvatarPicker, filesContent: avatarContent } =
+    useFilePicker({
+      accept: ["image/*"],
+      readAs: "DataURL",
+      onFilesSuccessfullySelected: (files) => {
+        if (files.filesContent.length > 0) {
+          setOpenAvatarCropper(true);
+        }
+      },
+    });
+  const { openFilePicker: openBannerPicker, filesContent: bannerContent } =
+    useFilePicker({
+      accept: ["image/*"],
+      readAs: "DataURL",
+      onFilesSuccessfullySelected: (files) => {
+        if (files.filesContent.length > 0) {
+          setOpenBannerCropper(true);
+        }
+      },
+    });
 
   const onSubmit = async (data: z.infer<typeof formSchema>) => {
     updateUserUsername({ username: data.username });
@@ -182,9 +177,15 @@ export const ProfileEditPage = () => {
       {profileQuery.isSuccess && (
         <>
           <div className="relative mb-16">
-            {bannerUrl ?? profile?.bannerUrl ? (
+            {bannerUrl ?? profile?.banners ? (
               <Image
-                src={bannerUrl ?? profile?.bannerUrl}
+                src={
+                  bannerUrl ??
+                  findSpecifiedImageOrFirst(profile?.banners, {
+                    width: 400,
+                    height: (400 * 9) / 16,
+                  })?.url
+                }
                 alt="profile"
                 className="w-full h-44"
               />
@@ -202,7 +203,13 @@ export const ProfileEditPage = () => {
 
             <Image
               //src={avatarContent?.[0]?.content ?? profile?.avatarUrl}
-              src={avatarUrl ?? profile?.avatarUrl}
+              src={
+                avatarUrl ??
+                findSpecifiedImageOrFirst(profile?.avatars, {
+                  width: 300,
+                  height: 300,
+                })?.url
+              }
               alt="avatar"
               className="rounded-full border-2 border-white absolute -bottom-12 left-0 right-0 mx-auto size-28 object-cover"
               showSkeleton={false}
