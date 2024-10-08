@@ -1,5 +1,5 @@
 import { AlbumTile } from "@/features/album/components/AlbumTile";
-import { ArtistTile } from "@/features/artist/components/ArtistTile";
+import { ProfileTile } from "@/features/profile/components/ProfileTile";
 import { TrackTile } from "@/features/track/components/TrackTile";
 
 export const SearchResults = () => {
@@ -16,7 +16,7 @@ export const SearchResults = () => {
       </div>
       <div className="mb-4">
         <h4 className="font-medium mx-4 mb-2">Nghệ sĩ</h4>
-        <ArtistTile />
+        <ProfileTile />
       </div>
     </>
   );
