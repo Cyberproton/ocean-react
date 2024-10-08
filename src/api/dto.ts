@@ -11,3 +11,5 @@ export type PaginationResponse<T> = {
   next?: string;
   previous?: string;
 };
+
+export type ApiQueryOrNullOrUndefined = ApiQuery | null | undefined;
